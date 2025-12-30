@@ -320,52 +320,6 @@ namespace Quixel {
         }
         #endregion
 
-        #region HDRP Features PreDefined Macro Setup
-        /*
-#if (UNITY_2018_2 || UNITY_2018_3 || UNITY_2018_4 || UNITY_2019 || UNITY_2020 || UNITY_2021)
-        [MenuItem ("Window/Quixel/Enable HDRP Features")]
-        private static void EnableHDRP () {
-            Debug.Log ("HDRP enabled.");
-            AddDefineIfNecessary ("HDRP", EditorUserBuildSettings.selectedBuildTargetGroup);
-        }
-
-        [MenuItem ("Window/Quixel/Disable HDRP Features")]
-        private static void DisableHDRP () {
-            Debug.Log ("HDRP disabled.");
-            RemoveDefineIfNecessary ("HDRP", EditorUserBuildSettings.selectedBuildTargetGroup);
-        }
-#endif
-        */
-        public static void AddDefineIfNecessary (string _define, BuildTargetGroup _buildTargetGroup) {
-            var defines = PlayerSettings.GetScriptingDefineSymbolsForGroup (_buildTargetGroup);
-
-            if (defines == null) { defines = _define; } else if (defines.Length == 0) { defines = _define; } else { if (defines.IndexOf (_define, 0) < 0) { defines += ";" + _define; } }
-
-            PlayerSettings.SetScriptingDefineSymbolsForGroup (_buildTargetGroup, defines);
-        }
-
-        public static void RemoveDefineIfNecessary (string _define, BuildTargetGroup _buildTargetGroup) {
-            var defines = PlayerSettings.GetScriptingDefineSymbolsForGroup (_buildTargetGroup);
-
-            if (defines.StartsWith (_define + ";")) {
-                // First of multiple defines.
-                defines = defines.Remove (0, _define.Length + 1);
-            } else if (defines.StartsWith (_define)) {
-                // The only define.
-                defines = defines.Remove (0, _define.Length);
-            } else if (defines.EndsWith (";" + _define)) {
-                // Last of multiple defines.
-                defines = defines.Remove (defines.Length - _define.Length - 1, _define.Length + 1);
-            } else {
-                // Somewhere in the middle or not defined.
-                var index = defines.IndexOf (_define, 0, System.StringComparison.Ordinal);
-                if (index >= 0) { defines = defines.Remove (index, _define.Length + 1); }
-            }
-
-            PlayerSettings.SetScriptingDefineSymbolsForGroup (_buildTargetGroup, defines);
-        }
-        #endregion
-
         #region Progress Bar Utils
 
         static float maxNumberOfOperations = 0;

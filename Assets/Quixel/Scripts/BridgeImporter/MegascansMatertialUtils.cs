@@ -28,11 +28,6 @@ namespace Quixel
                     if (shaderType < 1)
                     {
                         mat.shader = Shader.Find("HDRP/Lit");
-
-#if UNITY_2018_1 || UNITY_2018_2
-                        mat.shader = Shader.Find("HDRenderPipeline/Lit");
-#endif
-                       
                         AddHDRPValues(mat);
                         mat.SetInt("_DisplacementMode", dispType);
                     }
@@ -53,7 +48,7 @@ namespace Quixel
                         }
                         else
                         {
-                            mat.shader = Shader.Find("Standard");
+                            //mat.shader = Shader.Find("Standard");
                             if (texPack > 0)
                                 mat.shader = Shader.Find("Standard (Specular setup)");
                         }
